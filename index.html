@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANNEM_İÇİN_ÖZEL_v2126</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffd700;
+            --soft-pink: #ff85a2;
+            --bg-dark: #0a050a;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+        }
+
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; z-index: -1;
+            background: radial-gradient(circle at center, #2e1024 0%, #0a050a 100%);
+        }
+
+        .scene {
+            width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            perspective: 2000px;
+        }
+
+        /* Anneler Günü Özel Hologramı */
+        .mother-card {
+            position: relative;
+            width: 450px;
+            background: rgba(255, 133, 162, 0.05);
+            border: 2px solid var(--gold);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 100px rgba(255, 215, 0, 0.2);
+            transition: transform 0.1s ease-out;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', crossorigin;
+            font-size: 45px;
+            color: var(--gold);
+            text-shadow: 0 0 20px var(--gold);
+            margin-bottom: 20px;
+            transform: translateZ(50px);
+        }
+
+        .message {
+            font-size: 14px;
+            line-height: 1.6;
+            color: white;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            transform: translateZ(30px);
+        }
+
+        button {
+            background: transparent;
+            border: 2px solid var(--soft-pink);
+            color: var(--soft-pink);
+            padding: 15px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 4px;
+            transition: 0.4s;
+            transform: translateZ(40px);
+        }
+
+        button:hover {
+            background: var(--soft-pink);
+            color: white;
+            box-shadow: 0 0 40px var(--soft-pink);
+        }
+
+        /* Kalp Yağmuru Efekti */
+        #heart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; z-index: 1000;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute; color: var(--soft-pink);
+            font-size: 20px; animation: float 3s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .final-msg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 2000; text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div id="heart-overlay"></div>
+
+    <div class="scene">
+        <div class="mother-card" id="card">
+            <p style="font-size: 8px; opacity: 0.5; letter-spacing: 5px;">TIME_CAPSULE_v2126</p>
+            <h1>Canım Annem</h1>
+            <div class="message">
+                Geleceğin dünyasında bile senin sevgin kadar parlak bir ışık yok. <br><br>
+                Anneler Günün Kutlu Olsun!
+            </div>
+            <button onclick="activateLove()">DOKUN</button>
+        </div>
+    </div>
+
+    <div class="final-msg" id="final">
+        <h1 style="font-size: 60px;">Seni Çok Seviyorum!</h1>
+        <p style="font-family: 'Orbitron'; font-size: 12px; opacity: 0.7;">DÜNYANIN EN İYİ ANNESİNE ÖZEL_v2126</p>
+        <div style="margin-top: 50px; font-size: 40px;">🌸❤️🌹</div>
+    </div>
+
+    <!-- Buraya annenin sevdiği bir şarkının linkini ekleyebilirsin -->
+    <audio id="love-sound">
+        <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Romantic+Music&filename=mt/mtY5NjM0MTU0OTY1Mzgx.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 3D Kart Hareketi
+        const card = document.getElementById('card');
+        document.addEventListener('mousemove', (e) => {
+            let x = (window.innerWidth / 2 - e.clientX) / 30;
+            let y = (window.innerHeight / 2 - e.clientY) / 30;
+            card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+        });
+
+        function activateLove() {
+            document.getElementById('love-sound').play();
+            document.getElementById('heart-overlay').style.display = 'block';
+            
+            // Kalp yağmuru başlat
+            for(let i=0; i<50; i++) {
+                setTimeout(() => {
+                    let h = document.createElement('div');
+                    h.className = 'heart';
+                    h.innerHTML = '❤️';
+                    h.style.left = Math.random() * 100 + 'vw';
+                    h.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.getElementById('heart-overlay').appendChild(h);
+                }, i * 100);
+            }
+
+            setTimeout(() => {
+                document.getElementById('final').style.display = 'flex';
+                document.getElementById('final').style.animation = 'pop 1s forwards';
+            }, 2000);
+        }
+
+        // Arka Plan Işıkları
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 215, 0, 0.3)";
+            for(let i=0; i<100; i++) {
+                ctx.beginPath();
+                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+        setInterval(drawStars, 1000);
+    </script>
+</body>
+</html>
