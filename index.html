@@ -2,188 +2,208 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANNEM_İÇİN_ÖZEL_v2126</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FOR_MOM_v2126_PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #ffd700;
             --soft-pink: #ff85a2;
-            --bg-dark: #0a050a;
+            --deep-purple: #1a0a1f;
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
+            background: var(--deep-purple);
             color: white;
             font-family: 'Orbitron', sans-serif;
             overflow: hidden;
+            touch-action: none; /* Kaydırmayı engelle, tam app hissi ver */
         }
 
-        #bg-canvas {
-            position: fixed; top: 0; left: 0; z-index: -1;
-            background: radial-gradient(circle at center, #2e1024 0%, #0a050a 100%);
+        /* Işıltılı Arka Plan */
+        #bg-glow {
+            position: fixed; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #3e1a3d 0%, #0a050a 100%);
+            z-index: -1;
         }
 
-        .scene {
+        /* 3D Sahne */
+        .viewport {
             width: 100vw; height: 100vh;
             display: flex; align-items: center; justify-content: center;
-            perspective: 2000px;
+            perspective: 1000px;
         }
 
-        /* Anneler Günü Özel Hologramı */
+        /* iPhone İçin Optimize Edilmiş Cam Kart */
         .mother-card {
             position: relative;
-            width: 450px;
-            background: rgba(255, 133, 162, 0.05);
-            border: 2px solid var(--gold);
-            backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 20px;
+            width: 85%; max-width: 350px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px); /* Safari uyumu */
+            padding: 40px 25px;
+            border-radius: 30px;
             transform-style: preserve-3d;
-            box-shadow: 0 0 100px rgba(255, 215, 0, 0.2);
-            transition: transform 0.1s ease-out;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,215,0,0.1);
             text-align: center;
+            transition: transform 0.2s ease-out;
         }
 
-        h1 {
-            font-family: 'Dancing Script', crossorigin;
-            font-size: 45px;
-            color: var(--gold);
-            text-shadow: 0 0 20px var(--gold);
-            margin-bottom: 20px;
-            transform: translateZ(50px);
-        }
-
-        .message {
-            font-size: 14px;
-            line-height: 1.6;
-            color: white;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            transform: translateZ(30px);
-        }
-
-        button {
-            background: transparent;
-            border: 2px solid var(--soft-pink);
-            color: var(--soft-pink);
-            padding: 15px 30px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 4px;
-            transition: 0.4s;
-            transform: translateZ(40px);
-        }
-
-        button:hover {
-            background: var(--soft-pink);
-            color: white;
-            box-shadow: 0 0 40px var(--soft-pink);
-        }
-
-        /* Kalp Yağmuru Efekti */
-        #heart-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; z-index: 1000;
+        /* Parlama Efekti */
+        .card-shine {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
             pointer-events: none;
         }
 
-        .heart {
-            position: absolute; color: var(--soft-pink);
-            font-size: 20px; animation: float 3s linear infinite;
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 38px;
+            color: var(--gold);
+            margin: 15px 0;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transform: translateZ(60px);
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) scale(0); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        .message {
+            font-size: 13px; line-height: 1.8;
+            letter-spacing: 1px; color: #eee;
+            margin-bottom: 30px; transform: translateZ(40px);
         }
 
-        .final-msg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+        /* Havalı Buton */
+        .btn-love {
+            background: linear-gradient(45deg, var(--soft-pink), #ff4d6d);
+            border: none; padding: 18px 40px;
+            border-radius: 50px; color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900; font-size: 12px;
+            letter-spacing: 3px; box-shadow: 0 10px 20px rgba(255, 133, 162, 0.4);
+            transform: translateZ(70px);
+            outline: none; -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Dokunma Halkası */
+        .ripple {
+            position: absolute; background: rgba(255, 215, 0, 0.4);
+            border-radius: 50%; transform: scale(0);
+            animation: ripple-effect 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-effect {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* Kalp Yağmuru */
+        .heart-particle {
+            position: fixed; pointer-events: none;
+            animation: float-up 3s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-500px) scale(2); opacity: 0; }
+        }
+
+        #final-overlay {
+            position: fixed; inset: 0; background: black;
             display: none; flex-direction: column;
             align-items: center; justify-content: center;
-            z-index: 2000; text-align: center;
+            z-index: 10000; text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
-    <div id="heart-overlay"></div>
+    <div id="bg-glow"></div>
 
-    <div class="scene">
+    <div class="viewport" id="stage">
         <div class="mother-card" id="card">
-            <p style="font-size: 8px; opacity: 0.5; letter-spacing: 5px;">TIME_CAPSULE_v2126</p>
+            <div class="card-shine"></div>
+            <p style="font-size: 8px; opacity: 0.6; letter-spacing: 4px;">NEURAL_LOVE_v2126</p>
             <h1>Canım Annem</h1>
             <div class="message">
-                Geleceğin dünyasında bile senin sevgin kadar parlak bir ışık yok. <br><br>
-                Anneler Günün Kutlu Olsun!
+                Geleceğin dünyasında her şey değişebilir ama <br>
+                <b>sana olan sevgim</b> <br>
+                her zaman evrenin en güçlü enerjisi kalacak.
             </div>
-            <button onclick="activateLove()">DOKUN</button>
+            <button class="btn-love" onclick="showLove(event)">KALBİME DOKUN</button>
         </div>
     </div>
 
-    <div class="final-msg" id="final">
-        <h1 style="font-size: 60px;">Seni Çok Seviyorum!</h1>
-        <p style="font-family: 'Orbitron'; font-size: 12px; opacity: 0.7;">DÜNYANIN EN İYİ ANNESİNE ÖZEL_v2126</p>
-        <div style="margin-top: 50px; font-size: 40px;">🌸❤️🌹</div>
+    <div id="final-overlay">
+        <h1 style="font-size: 50px;">❤️</h1>
+        <h2 style="font-family: 'Dancing Script'; font-size: 40px; color: var(--gold);">İyi ki Varsın!</h2>
+        <p style="font-size: 10px; margin-top: 20px; opacity: 0.5;">SENT_BY_YOUR_FAVORITE_SON</p>
     </div>
 
-    <!-- Buraya annenin sevdiği bir şarkının linkini ekleyebilirsin -->
-    <audio id="love-sound">
+    <audio id="bg-music">
         <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Romantic+Music&filename=mt/mtY5NjM0MTU0OTY1Mzgx.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // 3D Kart Hareketi
         const card = document.getElementById('card');
+
+        // 1. IPHONE JİROSKOP (Hologram Hareketi)
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (e) => {
+                // Telefonun eğimine göre rotasyon (gamma: sağ-sol, beta: ön-arka)
+                let rY = Math.min(Math.max(e.gamma / 1.5, -20), 20);
+                let rX = Math.min(Math.max((e.beta - 45) / 1.5, -20), 20);
+                
+                card.style.transform = `rotateY(${rY}deg) rotateX(${-rX}deg)`;
+            });
+        }
+
+        // Mouse desteği (Test için)
         document.addEventListener('mousemove', (e) => {
-            let x = (window.innerWidth / 2 - e.clientX) / 30;
-            let y = (window.innerHeight / 2 - e.clientY) / 30;
+            let x = (window.innerWidth / 2 - e.clientX) / 25;
+            let y = (window.innerHeight / 2 - e.clientY) / 25;
             card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
         });
 
-        function activateLove() {
-            document.getElementById('love-sound').play();
-            document.getElementById('heart-overlay').style.display = 'block';
-            
-            // Kalp yağmuru başlat
-            for(let i=0; i<50; i++) {
+        // 2. DOKUNMA HALKASI (Ripple Effect)
+        document.addEventListener('touchstart', (e) => {
+            let touch = e.touches[0];
+            let ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = touch.clientX - 25 + 'px';
+            ripple.style.top = touch.clientY - 25 + 'px';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // 3. SEVGİ PATLAMASI
+        function showLove(e) {
+            e.stopPropagation();
+            document.getElementById('bg-music').play();
+
+            // Kalp fışkırtma
+            for(let i=0; i<30; i++) {
                 setTimeout(() => {
-                    let h = document.createElement('div');
-                    h.className = 'heart';
-                    h.innerHTML = '❤️';
-                    h.style.left = Math.random() * 100 + 'vw';
-                    h.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    document.getElementById('heart-overlay').appendChild(h);
-                }, i * 100);
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerHTML = ['❤️','🌸','✨','💖'][Math.floor(Math.random()*4)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '80vh';
+                    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 50);
             }
 
+            // Final Ekranı
             setTimeout(() => {
-                document.getElementById('final').style.display = 'flex';
-                document.getElementById('final').style.animation = 'pop 1s forwards';
+                const overlay = document.getElementById('final-overlay');
+                overlay.style.display = 'flex';
+                overlay.style.animation = 'fadeIn 1s forwards';
             }, 2000);
         }
-
-        // Arka Plan Işıkları
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255, 215, 0, 0.3)";
-            for(let i=0; i<100; i++) {
-                ctx.beginPath();
-                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2, 0, Math.PI*2);
-                ctx.fill();
-            }
-        }
-        setInterval(drawStars, 1000);
     </script>
 </body>
 </html>
